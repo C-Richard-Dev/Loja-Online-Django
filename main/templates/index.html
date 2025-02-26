@@ -2,6 +2,180 @@
 {% load static %}
 {% block content %}
 
-Fazendo teste no index
+<!-- Carrossel de imagens -->
+<div id="carouselExampleIndicators" class="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="" class="carousel-img" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="" class="carousel-img" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" onclick="prevSlide()">&#10094;</button>
+    <button class="carousel-control-next" onclick="nextSlide()">&#10095;</button>
+</div>
+
+<main class="container">
+    <!-- Produtos Destaques -->
+    <h3>Produtos Destaques</h3>
+    <div class="products-grid">
+        <div class="card">
+            <a href="/product/{{product.slug}}/{{product.id}}">
+                <img src="static/media/images/produto.jpg" class="product-img" alt="{{product.title}}">
+            </a>
+            <div class="card-body">
+                <h5><a href="">{{product.title}}</a></h5>
+                <h6>R$ <span>{{product.price}}</span></h6>
+            </div>
+            <div class="card-footer">
+                <input type="hidden" value="1" class="product-qty" />
+                <input type="hidden" class="product-id" value="{{product.id}}" />
+                <button class="add-to-cart" data-index="{{product.id}}">Adicionar ao carrinho</button>
+            <!-- <button class="add-wishlist" data-product="{{product.id}}"><i class="fa fa-heart"></i></button> -->
+            </div>
+        </div>
+    </div>
+    <p class="text-center">
+        <a href="" class="all-products">Todos os Produtos</a>
+    </p>
+</main>
+
+<script>
+    let currentIndex = 0;
+    function showSlide(index) {
+        let slides = document.querySelectorAll('.carousel-item');
+        if (index >= slides.length) currentIndex = 0;
+        if (index < 0) currentIndex = slides.length - 1;
+        slides.forEach((slide, i) => {
+            slide.style.display = i === currentIndex ? 'block' : 'none';
+        });
+    }
+    function prevSlide() { currentIndex--; showSlide(currentIndex); }
+    function nextSlide() { currentIndex++; showSlide(currentIndex); }
+    showSlide(currentIndex);
+</script>
+
+<style>
+    /* Estilo geral */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Estilo do carrossel */
+    #carouselExampleIndicators {
+        max-width: 800px;
+        margin: 20px auto;
+    }
+
+    .carousel-inner img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    /* Container principal */
+    .container {
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    /* Título dos produtos */
+    h3 {
+        text-align: left;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 5px;
+    }
+
+    /* Estilo do card do produto */
+    .card {
+        width: 200px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 10px;
+        display: inline-block;
+    }
+
+    .card img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .card-body h6 {
+        font-size: 1rem;
+        color: #d9534f;
+        font-weight: bold;
+    }
+
+    /* Botões */
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+
+    button {
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .add-to-cart {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .add-to-cart:hover {
+        background-color: #0056b3;
+    }
+
+    .add-wishlist {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .add-wishlist:hover {
+        background-color: #a71d2a;
+    }
+
+    /* Ícone de coração desativado */
+    .disabled {
+        background-color: #f8d7da;
+        color: #dc3545;
+    }
+
+    /* Estrela de avaliação */
+    span {
+        color: #ffc107;
+        font-weight: bold;
+    }
+
+    /* Botão "Todos os Produtos" */
+    .text-center a {
+        background-color: #343a40;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .text-center a:hover {
+        background-color: #1d2124;
+    }
+
+</style>
 
 {% endblock %}

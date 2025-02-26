@@ -1,108 +1,50 @@
-{% load static %}
-
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Loja Django 2022</title>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome-free/css/all.min.css' %}" />
-
-    <!-- Bootstrap 4 CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'bs4/bootstrap.min.css' %}" />
-
-    <!-- Main jQuery -->
-    <script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
-
-    <!-- Bootstrap 4 JS -->
-    <script type="text/javascript" src="{% static 'bs4/bootstrap.min.js' %}"></script>
-
-    <!-- CustomJS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'custom.css' %}" />
-    <script type="text/javascript" src="{% static 'custom.js' %}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Django</title>
+    <link rel="stylesheet" href="static/styles.css">
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <nav class="navbar">
         <div class="container">
-            <a class="navbar-brand" href="#">Loja Django</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <form class="form-inline my-2 my-lg-0" id="search">
-                    <div class="input-group">
-                        <input name="q" type="text" class="form-control" placeholder="Pesquisar" />
-                        <div class="input-group-append">
-                            <button class="btn btn-dark" type="submit" id="button-addon2">Pesquisar</button>
-                        </div>
+            <a class="logo" href="#">Loja Django</a>
+            <br>
+            <br>
+            <form class="search-form">
+                <input type="text" placeholder="Pesquisar...">
+                <button type="submit">🔍</button>
+            </form>
+            <br>
+            <br>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#">Categorias</a></li>
+                <li><a href="#">Marcas</a></li>
+                <li><a href="#">🛒 Carrinho (0)</a></li>
+                <li class="dropdown">
+                    <a href="#">👤 Minha Conta</a>
+                    <div class="dropdown-menu">
+                        <a href="#">Painel</a>
+                        <a href="#">Sair</a>
+                        <a href="#">Login</a>
+                        <a href="#">Cadastrar</a>
                     </div>
-                </form>
-
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'category-list' %}">Categorias</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'brand-list' %}">Marcas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'cart' %}">
-                            <i class="fa fa-shopping-cart"></i> Carrinho (<span class="cart-list">{% if request.session.cartdata %}{{ request.session.cartdata|length }}{% else %}0{% endif %}</span>)
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                            <i class="fa fa-user"></i> Minha Conta
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {% if user.is_authenticated %}
-                                <a class="dropdown-item" href="{% url 'my_dashboard' %}">Painel</a>
-                                <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
-                            {% else %}
-                                <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-                                <a class="dropdown-item" href="{% url 'signup' %}">Cadastrar</a>
-                            {% endif %}
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                </li>
+            </ul>
         </div>
     </nav>
 
-    {% block content %}
-    {% endblock %}
+    <main class="content">
+        <h1>Bem-vindo à Loja Online</h1>
+        <p>Explore nossos produtos e encontre o que você precisa.</p>
+        {% block content %}
+        {%  endblock %}
+    </main>
 
-    <footer class="pt-4 my-md-5 pt-md-5 border-top container">
-        <div class="row">
-            <div class="col-12 col-md">
-                <a href="#">Loja Django 2022</a>
-                <small class="d-block mb-3 text-muted">&copy; 2022</small>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Recursos</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Produtos Legais</a></li>
-                    <li><a class="text-muted" href="#">Recurso Aleatório</a></li>
-                    <li><a class="text-muted" href="#">Produtos Para Desenvolvedores</a></li>
-                    <li><a class="text-muted" href="#">Outros</a></li>
-                    <li><a class="text-muted" href="#">Última Oportunidade</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Recursos</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Recursos</a></li>
-                    <li><a class="text-muted" href="#">Nome Do Recurso</a></li>
-                    <li><a class="text-muted" href="#">Outro Recurso</a></li>
-                    <li><a class="text-muted" href="#">Recurso Final</a></li>
-                </ul>
-            </div>
-        </div>
+    <footer class="footer">
+        <p>&copy; 2025 Loja Django - Todos os direitos reservados</p>
     </footer>
 </body>
 </html>
