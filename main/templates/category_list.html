@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% extends 'static/styles.css' % }
+{% block content %}
+
+
+
+<main class="container my-4">
+
+    <h3 class="my-4 border-bottom pb-1">Categorias</h3>
+    <div class="row">
+        {% if data %}
+            {% for cat in data %}
+                <div class="col-md-3 mb-4">
+                    <div class="card shadow">
+                        <a href="">
+                            <img src="/media/{{ cat.image }}" class="card-img-top" alt="{{ cat.title }}">
+                        </a>
+                        <div class="card-body">
+                            <h6 class="card-text">
+                                <a href="#">{{ cat.title }}</a>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+</main>
+
+<style>
+    .card {
+        width: 200px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 10px;
+        display: inline-block;
+    }
+</style>
+
+{% endblock %}
