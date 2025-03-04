@@ -1,12 +1,27 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Category, Marca, Color, Size, Product, ProductAttribute
+from .models import Banner ,Category, Marca, Color, Size, Product, ProductAttribute
 
-admin.site.register(Category)
+admin.site.register(Banner)
 admin.site.register(Marca)
-admin.site.register(Color)
 admin.site.register(Size)
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'image_tag_path')
+
+admin.site.register(Category, CategoryAdmin)
+
+
+
+
+
+
+class ColorAdmin(admin.ModelAdmin):
+    list_display = ('title', 'color_tag_path')
+
+admin.site.register(Color, ColorAdmin)
 
 
 
