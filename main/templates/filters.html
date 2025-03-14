@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtros</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <script type="text/javascript" src="{% static 'product-filter.js' %}"></script>
+</head>
+
+<style>
+    /* Reset de estilos e configuração global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Estilização da barra de navegação */
+.navbar {
+    background-color: #2ca02c;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para os filtros */
+.filters {
+    width: 250px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.filters h6 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.list-group {
+    list-style: none;
+    padding: 0;
+}
+
+.list-group-item {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.list-group-item input[type="checkbox"],
+.list-group-item input[type="number"] {
+    margin-right: 10px;
+}
+
+.btn {
+    background-color: #2ca02c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.btn:hover {
+    background-color: #218c21;
+}
+
+#rangeInput {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.list-group {
+    list-style-type: none;
+}
+
+.filter-checkbox {
+    margin-right: 8px;
+}
+</style>
+
+
+
+
+<body>
+
+    <h3 class="titulo">Filtros</h3>
+
+    <div class="card">
+        <h6 class="card-header">Preço</h6>
+        <div class="list-group">
+            <li class="list-group-item">
+                <input type="range" value="{{minMaxPrice.price__min}}" 
+                    max="{{minMaxPrice.price__max}}" 
+                    min="{{minMaxPrice.price__min}}" 
+                    id="rangeInput" 
+                    oninput="maxPrice.value=this.value" />
+                <p>{{minMaxPrice.price__min}} - {{minMaxPrice.price__max}}</p>
+            </li>
+            <li class="list-group-item">
+                Máximo: 
+                <input type="number" value="{{minMaxPrice.price__min}}" 
+                    max="{{minMaxPrice.price__max}}" 
+                    min="{{minMaxPrice.price__min}}" 
+                    class="input-text" 
+                    id="maxPrice" 
+                    onkeyup="rangeInput.value=this.value" />
+                <button id="priceFilterBtn" class="btn">Filtrar</button>
+            </li>
+        </div>
+    </div>
+
+    <div class="card">
+        <h6 class="card-header">Cores</h6>
+        <div class="list-group">
+            {% for color in colors %}
+            <li class="list-group-item">
+                <input class="filter-checkbox" data-filter="color" value="{{color.color__id}}" type="checkbox" />
+                <!-- <button class="color-btn" style="background-color: {{color.color__color__code}};"></button> -->
+            </li>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card">
+        <h6 class="card-header">Categorias</h6>
+        <div class="list-group">
+            {% for cat in cats %}
+            <li class="list-group-item">
+                <input class="filter-checkbox" data-filter="category" value="{{cat.category__id}}" type="checkbox" />
+                {{cat.category__title}}
+            </li>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card">
+        <h6 class="card-header">Marcas</h6>
+        <div class="list-group">
+            {% for marca in marcas %}
+            <li class="list-group-item">
+                <input class="filter-checkbox" data-filter="marca" value="{{marca.marca__id}}" type="checkbox" />
+                {{marca.marca__title}}
+            </li>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card">
+        <h6 class="card-header">Tamanhos</h6>
+        <div class="list-group">
+            {% for size in sizes %}
+            <li class="list-group-item">
+                <input class="filter-checkbox" data-filter="size" value="{{size.size__id}}" type="checkbox" />
+                {{size.size__title}}
+            </li>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

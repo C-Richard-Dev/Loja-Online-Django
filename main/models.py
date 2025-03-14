@@ -35,6 +35,10 @@ class Marca(models.Model):
     class Meta:
         verbose_name_plural = "3. Marcas"
 
+
+    def image_tag_path(self):
+        return mark_safe('<img src="%s" width="50" height="120" />' %(self.image.url))
+
     def __str__(self):
         return self.title
     
@@ -47,7 +51,7 @@ class Color(models.Model):
         verbose_name_plural = "4. Colors"
 
     def color_tag_path(self):
-        return mark_safe('<div style =" width:50px; height:50px; background:%s" </div>' %(self.color_code))
+        return mark_safe('<div style =" width:50px; height:120px; background:%s" </div>' %(self.color_code))
 
     def __str__(self):
         return self.title

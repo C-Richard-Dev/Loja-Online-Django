@@ -9,6 +9,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.home,name='home'),
     path('category-list/', views.category_list,name='category_list'),
+    path('marca-list/', views.marca_list,name='marca_list'),
+    path('product-list/', views.product_list,name='product_list'),
 ]
 
 if settings.DEBUG:

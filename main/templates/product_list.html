@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="container">
+    <div class="content-wrapper">
+        <!-- Filtros -->
+        <aside class="filters">
+            {% include 'filters.html' %}
+        </aside>
+
+        <!-- Produtos -->
+        <section class="products-section">
+            <h3 class="section-title">Produtos</h3>
+            <div class="products-grid" id="filteredProducts">
+                <p class="ajaxLoader">Carregando...</p>
+                {% for product in data %}
+                <div class="product-card">
+                    <a href="/product/{{product.slug}}/{{product.id}}">
+                        <img src="/media/{{product.image}}" class="product-img" alt="{{product.title}}">
+                    </a>
+                    <div class="product-info">
+                        <h5><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></h5>
+                        <h6>R$ <span>{{product.price}}</span></h6>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart" data-index="{{product.id}}">
+                            <i class="fa fa-shopping-cart"></i> Adicionar ao carrinho
+                        </button>
+                        <button class="wishlist">
+                            <i class="fa fa-heart"></i>
+                        </button>
+                        <span class="rating">4.5/5 <i class="fa fa-star"></i></span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <p class="text-center">
+                <button id="loadMore" data-total="" data-limit="3" class="load-more-btn">
+                    Carregar + <i class="fa fa-sync load-more-icon"></i>
+                </button>
+            </p>
+        </section>
+    </div>
+</main>
+{% endblock %}
+
+<style>
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Container principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estrutura da página */
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+/* Filtros */
+.filters {
+    width: 25%;
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* Sessão de produtos */
+.products-section {
+    width: 75%;
+}
+
+/* Título */
+.section-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
+
+/* Grid de produtos */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Card de produto */
+.product-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Imagem do produto */
+.product-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Informações do produto */
+.product-info h5 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.product-info h6 {
+    font-size: 16px;
+    color: #007BFF;
+}
+
+/* Ações do produto */
+.product-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Botões */
+.add-to-cart, .wishlist, .load-more-btn {
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.add-to-cart {
+    background: #28a745;
+    color: #fff;
+}
+
+.add-to-cart:hover {
+    background: #218838;
+}
+
+.wishlist {
+    background: #dc3545;
+    color: #fff;
+}
+
+.wishlist:hover {
+    background: #c82333;
+}
+
+.load-more-btn {
+    background: #333;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+.load-more-btn:hover {
+    background: #555;
+}
+
+/* Avaliação */
+.rating {
+    font-size: 14px;
+    color: #f39c12;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .filters {
+        width: 100%;
+    }
+
+    .products-section {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}
+</style>
